@@ -15,12 +15,11 @@ import {
 import { MdCheckBox, MdOutlineCheckBoxOutlineBlank } from "react-icons/md";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { useNavigate } from "react-router-dom";
-import "./Studio.css";
 import Navbar from "../../Navbar/Navbar";
 
 const CreateOption = ({ icon: Icon, title, onClick }) => (
-  <button onClick={onClick} className="create-option">
-    <Icon className="option-icon" />
+  <button onClick={onClick} className="flex items-center px-4 sm:px-6 py-2 sm:py-3 border-none rounded-lg bg-white text-gray-400 text-xs sm:text-sm font-medium cursor-pointer transition-all duration-200 hover:bg-gray-50">
+    <Icon className="w-4 h-4 mr-3" />
     <span>{title}</span>
   </button>
 );
@@ -97,56 +96,56 @@ const Studio = () => {
   ];
 
   return (
-    <div className="app">
+    <div className="min-h-screen bg-gray-100">
       <Navbar onNewApp={() => setShowCreateModal(true)} />
 
-      <div className="studio-container">
-        <div className="studio-inner">
-          <div className="studio-header">
-            <div className="left-section">
+      <div className="p-3 sm:p-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6 lg:mb-8 gap-4">
+            <div className="flex flex-wrap gap-1 sm:gap-2">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`tab-buttonn ${
-                    activeTab === tab.id ? "active" : ""
+                      ? "bg-white text-blue-600 border border-blue-200 shadow-sm" 
+                      : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
                   }`}
                 >
-                  <span className="tab-icon">{tab.icon}</span>
+                  {tab.icon}
                   {tab.label}
                 </button>
               ))}
             </div>
 
-            <div className="right-section">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 text-xs sm:text-sm font-medium">
               <div
-                className="creator-checkbox"
+                className="flex items-center cursor-pointer text-gray-600 hover:text-gray-900 transition-colors"
                 onClick={() => setIsCreatedByMeChecked(!isCreatedByMeChecked)}
               >
                 {isCreatedByMeChecked ? (
-                  <MdCheckBox className="icon mr-2" />
+                  <MdCheckBox className="w-4 h-4 mr-2" />
                 ) : (
-                  <MdOutlineCheckBoxOutlineBlank className="icon mr-2" />
+                  <MdOutlineCheckBoxOutlineBlank className="w-4 h-4 mr-2" />
                 )}
                 <span>Created by me</span>
               </div>
 
-              <div className="tag-dropdown-wrapper">
+              <div className="relative">
                 <button
                   onClick={() => setIsTagsOpen(!isTagsOpen)}
-                  className="tag-btn"
+                  className="flex items-center px-3 py-2 text-xs sm:text-sm font-medium border border-gray-300 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-50 transition-colors"
                 >
-                  <Tag className="icon mr-2" />
+                  <Tag className="w-4 h-4 mr-2" />
                   All Tags
                   <ChevronDown
-                    className={`icon ml-2 ${isTagsOpen ? "rotate" : ""}`}
+                    className={`w-4 h-4 ml-2 transition-transform ${isTagsOpen ? "rotate-180" : ""}`}
                   />
                 </button>
                 {isTagsOpen && (
-                  <div className="tag-dropdown">
-                    <button className="tag-option">All Tags</button>
+                  <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
+                    <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">All Tags</button>
                     {tagOptions.map((tag) => (
-                      <button key={tag} className="tag-option">
+                      <button key={tag} className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">
                         {tag}
                       </button>
                     ))}
@@ -154,14 +153,14 @@ const Studio = () => {
                 )}
               </div>
 
-              <div className="search-wrapper">
-                <Search className="search-icon" />
+              <div className="relative w-full sm:w-64">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <input
                   type="text"
                   placeholder="Search"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="search-input"
+                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -169,69 +168,67 @@ const Studio = () => {
         </div>
       </div>
 
-      <div className="content-grid-container">
-        <div className="content-grid">
-          <div className="grid-card create-app-card">
-            <div className="index-header">
-              <h1 className="index-title">CREATE APP</h1>
+      <div className="px-3 sm:px-6 pb-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4 sm:gap-6">
+            <div className="bg-gray-50 rounded-xl p-6 sm:p-8 h-48 sm:h-52 flex flex-col">
+              <div className="mb-6">
+                <h1 className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-4">CREATE APP</h1>
+              </div>
+              <div className="flex flex-col gap-3 flex-1">
+                <CreateOption
+                  icon={File}
+                  title="Create from Blank"
+                  onClick={() => setShowCreateModal(true)}
+                />
+                <CreateOption
+                  icon={FileText}
+                  title="Create from Template"
+                  onClick={() => {}}
+                />
+                <CreateOption
+                  icon={Import}
+                  title="Import DSL file"
+                  onClick={() => {}}
+                />
+              </div>
             </div>
-            <div className="index-options">
-              <CreateOption
-                icon={File}
-                title="Create from Blank"
-                onClick={() => setShowCreateModal(true)}
-              />
-              <CreateOption
-                icon={FileText}
-                title="Create from Template"
-                onClick={() => {}}
-              />
-              <CreateOption
-                icon={Import}
-                title="Import DSL file"
-                onClick={() => {}}
-              />
-            </div>
-          </div>
 
           {containers.map((container) => (
             <div
               key={container.id}
-              className="grid-card container-card"
+              className="bg-white rounded-xl p-4 sm:p-6 h-48 sm:h-52 flex flex-col justify-between shadow-sm border border-gray-200 hover:shadow-md transition-shadow cursor-pointer relative group"
               onClick={() => navigate(`/studio/${container.id}`)}
               onMouseLeave={() => setOpenMenuId(null)}
-              style={{ cursor: "pointer" }}
             >
-              <div className="container-content">
-                <h3>{container.name}</h3>
+              <div className="flex-1">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{container.name}</h3>
                 {container.project && (
-                  <p className="project-name">Project: {container.project}</p>
+                  <p className="text-sm text-gray-600 mb-2">Project: {container.project}</p>
                 )}
-                <p>{container.description}</p>
-                <small className="created-at">
+                <p className="text-sm text-gray-600 mb-3 line-clamp-2">{container.description}</p>
+                <small className="text-xs text-gray-500">
                   Created on: {new Date(container.createdAt).toLocaleString()}
                 </small>
               </div>
               <div
-                className="container-actions"
+                className="absolute top-4 right-4"
                 onClick={(e) => e.stopPropagation()}
               >
-                <div className="dots-container">
-                  <button
-                    className="dots-button"
-                    onClick={() =>
-                      setOpenMenuId(
-                        openMenuId === container.id ? null : container.id
-                      )
-                    }
-                  >
-                    <HiOutlineDotsHorizontal className="dots-icon" />
-                  </button>
-                </div>
+                <button
+                  className="p-1 rounded hover:bg-gray-100 opacity-0 group-hover:opacity-100 transition-opacity"
+                  onClick={() =>
+                    setOpenMenuId(
+                      openMenuId === container.id ? null : container.id
+                    )
+                  }
+                >
+                  <HiOutlineDotsHorizontal className="w-5 h-5 text-gray-400" />
+                </button>
                 {openMenuId === container.id && (
-                  <div className="dropdown-menu">
+                  <div className="absolute right-0 top-8 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-10">
                     <button
-                      className="menu-item"
+                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
                       onClick={() => {
                         setEditId(container.id);
                         setEditName(container.name);
@@ -242,11 +239,11 @@ const Studio = () => {
                     >
                       Edit Info
                     </button>
-                    <button className="menu-item">Duplicate</button>
-                    <button className="menu-item">Export DSL</button>
-                    <button className="menu-item">Open in Explore</button>
+                    <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">Duplicate</button>
+                    <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">Export DSL</button>
+                    <button className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50">Open in Explore</button>
                     <button
-                      className="menu-item"
+                      className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50"
                       onClick={() => {
                         setDeleteId(container.id);
                         setShowDeleteModal(true);
@@ -260,98 +257,96 @@ const Studio = () => {
               </div>
             </div>
           ))}
+          </div>
         </div>
       </div>
 
       {showCreateModal && (
-        <div className="modal-overlay">
-          <div className="create-modal">
+        <div className="fixed inset-0 bg-gray-100 flex items-center justify-center z-50 p-4 sm:p-8">
+          <div className="flex w-full max-w-6xl h-full max-h-[90vh] bg-white rounded-xl shadow-xl overflow-hidden">
             <button
               onClick={() => setShowCreateModal(false)}
-              className="close-button"
+              className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-lg z-10"
             >
-              <X className="icon" />
+              <X className="w-5 h-5" />
             </button>
-            <div className="modal-left">
-              <div className="modal-header">
+            <div className="flex-1 p-8 sm:p-12 lg:p-16">
+              <div className="mb-8">
                 <h3>Create From Blank</h3>
               </div>
-              <div className="modal-body">
-                <div className="form-group">
-                  <label className="modal-label">Project Name</label>
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Project Name</label>
                   <input
                     type="text"
                     placeholder="Give your project a name"
                     value={projectName}
                     onChange={(e) => setProjectName(e.target.value)}
-                    className="modal-input"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
-                <div className="form-group">
-                  <label className="modal-label">App Name</label>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">App Name</label>
                   <input
                     type="text"
                     placeholder="Give your app a name"
                     value={containerName}
                     onChange={(e) => setContainerName(e.target.value)}
-                    className="modal-input"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                 </div>
-                <div className="form-group">
-                  <label className="modal-label">Description</label>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
                   <textarea
                     placeholder="Enter the description of the app"
-                    className="modal-textarea"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-sm h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     rows={4}
                     value={editDescription}
                     onChange={(e) => setEditDescription(e.target.value)}
                   />
                 </div>
               </div>
-              <div className="modal-footer">
+              <div className="flex justify-end gap-3 mt-8">
                 <button
                   onClick={() => setShowCreateModal(false)}
-                  className="cancel-button"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={handleCreateContainer}
-                  className="create-button"
+                  className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Create
                 </button>
               </div>
             </div>
-            <div className="modal-right"></div>
+            <div className="hidden lg:block w-1/2 bg-gray-50"></div>
           </div>
         </div>
       )}
 
       {showDeleteModal && (
-        <div className="modal-overlay">
-          <div className="confirm-modal">
-            <div className="modal-content">
-              <h3 className="modal-title">Delete this app?</h3>
-              <p className="modal-message">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-md">
+            <div className="mb-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Delete this app?</h3>
+              <p className="text-sm text-gray-600 leading-relaxed">
                 Deleting the app is irreversible. Users will no longer
-                <br />
                 be able to access your app, and all prompt
-                <br />
                 configurations and logs will be permanently
-                <br />
                 deleted.
               </p>
             </div>
-            <div className="modal-actions">
+            <div className="flex justify-end gap-3">
               <button
-                className="cancel-btn"
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
                 onClick={() => setShowDeleteModal(false)}
               >
                 Cancel
               </button>
               <button
-                className="confirm-btn"
+                className="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-red-600 rounded-lg hover:bg-red-700 transition-colors"
                 onClick={() => {
                   handleDeleteContainer(deleteId);
                 }}
@@ -364,45 +359,45 @@ const Studio = () => {
       )}
 
       {showEditModal && (
-        <div className="modal-overlayy">
-          <div className="edit-modal">
-            <div className="modal-header">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl p-6 w-full max-w-lg relative">
+            <div className="flex items-center justify-between mb-6">
               <h3>Edit App Info</h3>
               <button
                 onClick={() => setShowEditModal(false)}
-                className="close-buttonn"
+                className="p-1 hover:bg-gray-100 rounded"
               >
-                <X className="icon" />
+                <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="modal-body">
-              <div className="form-group">
-                <label className="modal-label">App Name</label>
+            <div className="space-y-4 mb-6">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">App Name</label>
                 <input
                   type="text"
-                  className="modal-input"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
                 />
               </div>
-              <div className="form-group">
-                <label className="modal-label">Description</label>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
                 <textarea
-                  className="modal-textarea"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50 text-sm h-32 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   rows={4}
                   value={editDescription}
                   onChange={(e) => setEditDescription(e.target.value)}
                 />
               </div>
             </div>
-            <div className="modal-footer">
+            <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowEditModal(false)}
-                className="cancel-button"
+                className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 border border-gray-300 rounded-lg hover:bg-gray-200 transition-colors"
               >
                 Cancel
               </button>
-              <button onClick={handleSaveEdit} className="create-button">
+              <button onClick={handleSaveEdit} className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
                 Save
               </button>
             </div>
