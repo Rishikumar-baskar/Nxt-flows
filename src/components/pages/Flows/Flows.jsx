@@ -1,9 +1,7 @@
-
 import React, { useState } from 'react';
 import Sidebar from '../../Sidebar/Sidebar';
 import Navbar from '../../Navbar/Navbar';
 import MainContent from '../../Maincontent/Maincontent';
-import './Flows.css';
 
 const Index = () => {
   const [selectedFlow, setSelectedFlow] = useState({
@@ -18,9 +16,9 @@ const Index = () => {
   };
 
   return (
-    <div className="app">
+    <div className="h-screen overflow-hidden">
       <Navbar />
-      <div className="app-body">
+      <div className="flex h-[calc(100vh-60px)]">
         <Sidebar onFlowSelect={handleFlowSelect} />
         <MainContent selectedFlow={selectedFlow} />
       </div>
