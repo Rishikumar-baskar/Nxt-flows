@@ -6,6 +6,7 @@ import { ThumbsUp, Search } from 'lucide-react';
 const Exploreflow = () => {
   const [activeCategory, setActiveCategory] = useState('recent');
   const [searchQuery, setSearchQuery] = useState('');
+  // eslint-disable-next-line no-unused-vars
   const [selectedFlow, setSelectedFlow] = useState({
     id: 1,
     name: 'sampletry',

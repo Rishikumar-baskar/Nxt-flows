@@ -82,7 +82,7 @@ function Login() {
             {/* Forgot password link */}
             <div className="text-right">
               <a 
-                href="#" 
+                href="/" 
                 className="text-blue-600 text-xs sm:text-sm lg:text-base hover:text-blue-700 transition-colors"
               >
                 Forgot Password?
@@ -101,7 +101,7 @@ function Login() {
             <div className="text-center text-xs sm:text-sm lg:text-base text-gray-600">
               Not a member yet?{' '}
               <a 
-                href="#" 
+                href="/" 
                 className="text-blue-600 hover:text-blue-700 transition-colors font-medium"
               >
                 Sign Up
