@@ -2,15 +2,14 @@ import { useState, useRef, useEffect } from 'react';
 import './NoteWidget.css';
 
 const NoteWidget = ({ onClose, position, onPositionChange }) => {
-  const [isMaximized, setIsMaximized] = useState(false);
+  const [isMaximized] = useState(false);
   const [note, setNote] = useState('');
   const [size, setSize] = useState({ width: 320, height: 200 });
   const [isResizing, setIsResizing] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
-  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [dragOffset] = useState({ x: 0, y: 0 });
   const widgetRef = useRef(null);
   const resizeRef = useRef(null);
-  const headerRef = useRef(null);
 
   const handleMouseDown = (e) => {
     e.preventDefault();
