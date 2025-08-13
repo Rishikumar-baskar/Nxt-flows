@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { Maximize2, Minimize2, X } from 'lucide-react';
 import './NoteWidget.css';
 
 const NoteWidget = ({ onClose, position, onPositionChange }) => {
@@ -12,10 +11,6 @@ const NoteWidget = ({ onClose, position, onPositionChange }) => {
   const widgetRef = useRef(null);
   const resizeRef = useRef(null);
   const headerRef = useRef(null);
-
-  const toggleMaximize = () => {
-    setIsMaximized(!isMaximized);
-  };
 
   const handleMouseDown = (e) => {
     e.preventDefault();
@@ -41,19 +36,6 @@ const NoteWidget = ({ onClose, position, onPositionChange }) => {
 
     document.addEventListener('mousemove', handleMouseMove);
     document.addEventListener('mouseup', handleMouseUp);
-  };
-
-  const handleHeaderMouseDown = (e) => {
-    if (e.target !== headerRef.current) return;
-    
-    setIsDragging(true);
-    const rect = widgetRef.current.getBoundingClientRect();
-    setDragOffset({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    });
-    
-    e.preventDefault();
   };
 
   useEffect(() => {
